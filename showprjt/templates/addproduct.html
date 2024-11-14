@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 columns in the grid */
+            gap: 20px;
+            /* Space between grid items */
+            margin-top: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card h3 {
+            margin-top: 0;
+        }
+
+        .product-card p {
+            margin: 5px 0;
+        }
+
+        .product-card .price {
+            font-weight: bold;
+        }
+
+        .product-card .stock {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="addproduct" method="post">
+        <h1>Product List</h1>
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <div class="input-field">
+                    <label for="pid">PRODUCTID</label>
+                    <input type="text" id="pid" name="pid" required>
+                </div>
+                <div class="input-field">
+                    <label for="name">NAME</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-field">
+                    <label for="dis">DISCRIPTION</label>
+                    <input type="text" id="dis" name="dis" required>
+                </div>
+                <div class="input-field">
+                    <label for="price">PRICE</label>
+                    <input type="number" id="price" name="price" required>
+                </div>
+                <div class="input-field">
+                    <label for="offer_price">OFFER_PRICE</label>
+                    <input type="number" id="offer_price" name="offerprice" required>
+                </div>
+                <div class="input-field">
+                    <label for="stock">STOCK</label>
+                    <input type="number" id="stock" name="stock" required>
+                </div>
+                <div class="input-field">
+                    <label for="img">IMAGE</label>
+                    <input type="file" id="img" name="img" required>
+                </div>
+            </div>
+            { % endfor %}
+        </div>
+        <a href="">Add New Product</a>
+
+    </form>
+</body>
+
+</html>

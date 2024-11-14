@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from .models import Product
 
 def e_shop_login(req):
     if 'shop' in req.session:
@@ -29,3 +30,7 @@ def shop_home(req):
         return render(req,'shop/home.html')
     else:
         return redirect(e_shop_login)
+    
+def addproduct(request):
+    products = Product.objects.all()  # Get all products from the database
+    return render(request, 'addproduct.html', {'products': products})
