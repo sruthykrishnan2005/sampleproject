@@ -27,10 +27,25 @@ def e_shop_logout(req):
 
 def shop_home(req):
     if 'shop' in req.session:
-        return render(req,'shop/home.html')
+        data=Product.objects.all()
+        return render(req,'shop/home.html',{'products':data})
     else:
         return redirect(e_shop_login)
     
-def addproduct(request):
-    products = Product.objects.all()  # Get all products from the database
-    return render(request, 'addproduct.html', {'products': products})
+def addproduct(req):
+    if 'shop' in req.session:
+        if req.method=='POST':
+            pid=req.POST['pid']
+            name=req.POST['name']
+            descrip=req.POST['descrip']
+            price=req.POST['price']
+            off_price=req.POST['off_price']
+            stock=req.POST['stock']
+            file=req.FILES['img']
+            data=Product.objects.create(pid=pid,name=name,dis=descrip,price=price,offer_price=off_price,stock=stock,img=file)
+            data.save()
+            return redirect(shop_home)
+        else:
+            return render(req,'shop/addproduct.html')
+    else:
+        return redirect(e_shop_login)
