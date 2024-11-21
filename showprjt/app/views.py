@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from .models import Product
+from .models import *
 import os
 from django.contrib.auth.models import User
 
@@ -112,5 +112,23 @@ def user_home(req):
         return render(req,'user/home.html',{'products':data})
     else:
         return redirect(e_shop_login)
+
+
+
+def view_product(req,pid):
+    data=Product.objects.get(pk=pid)
+    return render(req,'user/view_pro.html',{'product':data})
+
+
+def add_to_cart(req,pid):
+    product=Product.objects.get(pk=pid)
+    user=User.objects.get(username=req.session['user'])
+    data=Cart.objects.create(product=product,user=user,qty=1)
+    data.save()
+    return redirect(view_cart)
+
+
+def view_cart(req):
+    return render(req,'user/cart.html')
 
 
