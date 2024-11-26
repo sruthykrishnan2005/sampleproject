@@ -182,4 +182,6 @@ def bookings(req):
     return render(req,'user/bookings.html',{'bookings':buy})
 
 
-
+def view_bookings(req):
+    buy=Buy.objects.all()[::-1]
+    return render(req,'shop/view_booking.html',{'buy':buy})
